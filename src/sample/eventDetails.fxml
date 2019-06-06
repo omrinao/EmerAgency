@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -8,11 +9,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="750.0" text="Event Details" textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="82.0" prefWidth="900.0" text="Event Details" textAlignment="CENTER">
          <font>
-            <Font size="30.0" />
+            <Font size="50.0" />
          </font>
          <VBox.margin>
             <Insets top="10.0" />
@@ -20,71 +21,79 @@
       </Label>
       <HBox prefHeight="40.0" prefWidth="463.0">
          <children>
-            <Label text="Event Title: ">
+            <Label prefHeight="27.0" prefWidth="117.0" text="Event Title: ">
                <font>
-                  <Font size="15.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-            <TextField prefHeight="25.0" prefWidth="449.0">
+            <TextField prefHeight="25.0" prefWidth="389.0">
                <HBox.margin>
-                  <Insets left="10.0" />
+                  <Insets left="10.0" top="4.0" />
                </HBox.margin>
             </TextField>
          </children>
          <VBox.margin>
-            <Insets left="50.0" right="50.0" top="20.0" />
+            <Insets left="200.0" right="50.0" top="20.0" />
          </VBox.margin>
       </HBox>
       <HBox layoutX="60.0" layoutY="88.0" prefHeight="43.0" prefWidth="590.0">
          <children>
-            <Label text="Categories: ">
+            <Label prefHeight="27.0" prefWidth="118.0" text="Categories: ">
                <font>
-                  <Font size="15.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="96.0" layoutY="10.0" prefHeight="25.0" prefWidth="450.0">
+            <TextField layoutX="96.0" layoutY="10.0" prefHeight="25.0" prefWidth="390.0">
                <HBox.margin>
-                  <Insets left="8.0" />
+                  <Insets left="8.0" top="4.0" />
                </HBox.margin>
             </TextField>
          </children>
          <VBox.margin>
-            <Insets left="50.0" />
+            <Insets left="200.0" />
          </VBox.margin>
       </HBox>
       <HBox layoutX="60.0" layoutY="128.0" prefHeight="141.0" prefWidth="590.0">
          <children>
-            <Label text="Description: ">
+            <Label prefHeight="27.0" prefWidth="124.0" text="Description: ">
                <font>
-                  <Font size="15.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-            <TextArea prefHeight="141.0" prefWidth="452.0">
+            <TextArea prefHeight="141.0" prefWidth="391.0">
                <HBox.margin>
-                  <Insets left="2.0" />
+                  <Insets left="2.0" top="4.0" />
                </HBox.margin>
             </TextArea>
          </children>
          <VBox.margin>
-            <Insets left="50.0" />
+            <Insets left="200.0" />
          </VBox.margin>
       </HBox>
-      <HBox layoutX="60.0" layoutY="128.0" prefHeight="30.0" prefWidth="590.0">
+      <HBox layoutX="60.0" layoutY="128.0" prefHeight="69.0" prefWidth="700.0">
          <children>
-            <Label prefHeight="21.0" prefWidth="427.0" text="Organizations Participating: ">
+            <Label prefHeight="27.0" prefWidth="257.0" text="Organizations Participating: ">
                <font>
-                  <Font size="15.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-            <TextField prefHeight="25.0" prefWidth="591.0">
+            <TextArea prefHeight="69.0" prefWidth="260.0">
                <HBox.margin>
-                  <Insets right="50.0" />
+                  <Insets top="4.0" />
                </HBox.margin>
-            </TextField>
+            </TextArea>
          </children>
          <VBox.margin>
-            <Insets left="50.0" top="20.0" />
+            <Insets left="200.0" top="20.0" />
          </VBox.margin>
       </HBox>
+      <Button mnemonicParsing="false" text="Back">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="450.0" top="40.0" />
+         </VBox.margin>
+      </Button>
    </children>
 </VBox>

@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="750.0" text="View Event Details" textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="937.0" text="View Event Details" textAlignment="CENTER">
          <font>
-            <Font size="30.0" />
+            <Font size="50.0" />
          </font>
          <VBox.margin>
             <Insets top="10.0" />
@@ -20,42 +20,45 @@
       </Label>
       <HBox prefHeight="36.0" prefWidth="590.0">
          <children>
-            <Label text="Choose Category: ">
+            <Label prefHeight="27.0" prefWidth="167.0" text="Choose Category: ">
                <font>
-                  <Font size="15.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
             <ChoiceBox prefHeight="25.0" prefWidth="205.0">
                <HBox.margin>
-                  <Insets left="10.0" />
+                  <Insets left="10.0" top="4.0" />
                </HBox.margin>
             </ChoiceBox>
          </children>
          <VBox.margin>
-            <Insets left="150.0" top="50.0" />
+            <Insets left="250.0" top="50.0" />
          </VBox.margin>
       </HBox>
       <HBox layoutX="60.0" layoutY="88.0" prefHeight="50.0" prefWidth="440.0">
          <children>
-            <Label text="Choose Event: ">
+            <Label prefHeight="27.0" prefWidth="144.0" text="Choose Event: ">
                <font>
-                  <Font size="15.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
             <ChoiceBox prefHeight="25.0" prefWidth="205.0">
                <HBox.margin>
-                  <Insets left="33.0" />
+                  <Insets left="33.0" top="4.0" />
                </HBox.margin>
             </ChoiceBox>
          </children>
          <VBox.margin>
-            <Insets left="150.0" />
+            <Insets left="250.0" />
          </VBox.margin>
       </HBox>
       <Button mnemonicParsing="false" text="View Event">
          <VBox.margin>
-            <Insets left="300.0" />
+            <Insets left="400.0" top="20.0" />
          </VBox.margin>
+         <font>
+            <Font size="15.0" />
+         </font>
       </Button>
    </children>
 </VBox>
