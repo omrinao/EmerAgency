@@ -11,7 +11,7 @@ public class Main extends Application {
         System.out.println(getClass().getResource("fxml/mainView.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("fxml/mainView.fxml"));
         primaryStage.setTitle("Emer-Agency");
-        Scene scene = new Scene(root, 640, 400);
+        Scene scene = new Scene(root, 900, 600);
         scene.getStylesheets().add(getClass().getResource("css/ViewStyle.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();

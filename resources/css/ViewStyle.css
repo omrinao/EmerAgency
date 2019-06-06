@@ -1,0 +1,26 @@
+.root{
+    -fx-background-image: url("../background.jpg");
+    -fx-background-position: left top, center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover, auto;
+    -fx-font-family:  Gill Sans / Gill Sans MT, sans-serif;
+    -fx-font-weight: bold;
+
+}
+
+.button{
+    -fx-color: #ffd700;
+    -fx-font-weight: bold;
+}
+
+.label{
+    -fx-text-fill: #f5f5dc;
+    -fx-font-family:  Gill Sans / Gill Sans MT, sans-serif;
+    -fx-font-weight: bold;
+}
+
+.text{
+    -fx-stroke: #696969;
+    -fx-stroke-width: 0.5px;
+    -fx-font-weight: bold;
+}
