@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox onMouseMoved="#prepareView" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.postUpdateView">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="118.0" prefWidth="900.0" text="Post Update" textAlignment="CENTER">
          <font>
@@ -26,7 +26,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ChoiceBox prefHeight="25.0" prefWidth="305.0">
+            <ChoiceBox fx:id="cb_category" onMouseClicked="#set_events" prefHeight="25.0" prefWidth="305.0">
                <HBox.margin>
                   <Insets left="10.0" top="4.0" />
                </HBox.margin>
@@ -46,9 +46,9 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ChoiceBox prefHeight="25.0" prefWidth="305.0">
+            <ChoiceBox fx:id="cb_event" disable="true" prefHeight="25.0" prefWidth="305.0">
                <HBox.margin>
-                  <Insets left="55.0" />
+                  <Insets left="55.0" top="4.0" />
                </HBox.margin>
             </ChoiceBox>
          </children>
@@ -60,7 +60,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextArea prefHeight="141.0" prefWidth="306.0">
+            <TextArea fx:id="ta_description" prefHeight="141.0" prefWidth="306.0">
                <HBox.margin>
                   <Insets left="48.0" />
                </HBox.margin>
@@ -70,13 +70,25 @@
             <Insets left="200.0" />
          </VBox.margin>
       </HBox>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="39.0" prefWidth="146.0" text="Post Update">
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="btn_postUpdate" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#send_update" prefHeight="39.0" prefWidth="126.0" text="Post Update">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="btn_back" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#set_back" prefHeight="39.0" prefWidth="109.0" text="Back">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </Button>
+         </children>
          <VBox.margin>
-            <Insets left="450.0" top="20.0" />
+            <Insets left="350.0" top="30.0" />
          </VBox.margin>
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
+      </HBox>
    </children>
 </VBox>

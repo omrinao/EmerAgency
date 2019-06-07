@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.eventDetailsView">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="82.0" prefWidth="900.0" text="Event Details" textAlignment="CENTER">
          <font>
@@ -26,7 +26,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField prefHeight="25.0" prefWidth="389.0">
+            <TextField fx:id="tf_title" prefHeight="25.0" prefWidth="389.0">
                <HBox.margin>
                   <Insets left="10.0" top="4.0" />
                </HBox.margin>
@@ -43,7 +43,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="96.0" layoutY="10.0" prefHeight="25.0" prefWidth="390.0">
+            <TextField fx:id="tf_categories" layoutX="96.0" layoutY="10.0" prefHeight="25.0" prefWidth="390.0">
                <HBox.margin>
                   <Insets left="8.0" top="4.0" />
                </HBox.margin>
@@ -60,7 +60,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextArea prefHeight="141.0" prefWidth="391.0">
+            <TextArea fx:id="ta_description" prefHeight="141.0" prefWidth="391.0">
                <HBox.margin>
                   <Insets left="2.0" top="4.0" />
                </HBox.margin>
@@ -77,7 +77,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextArea prefHeight="69.0" prefWidth="260.0">
+            <TextArea fx:id="ta_org" prefHeight="69.0" prefWidth="260.0">
                <HBox.margin>
                   <Insets top="4.0" />
                </HBox.margin>
@@ -87,7 +87,7 @@
             <Insets left="200.0" top="20.0" />
          </VBox.margin>
       </HBox>
-      <Button mnemonicParsing="false" text="Back">
+      <Button fx:id="btn_back" mnemonicParsing="false" onMouseClicked="#set_back" prefHeight="38.0" prefWidth="64.0" text="Back">
          <font>
             <Font size="15.0" />
          </font>

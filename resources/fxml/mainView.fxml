@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.mainView">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="182.0" prefWidth="900.0" text="Emer-Agency" textAlignment="CENTER">
          <font>
@@ -19,7 +19,7 @@
       </Label>
       <HBox prefHeight="100.0" prefWidth="604.0">
          <children>
-            <Button layoutX="30.0" layoutY="50.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="119.0" text="Create Event">
+            <Button fx:id="btn_createEvent" layoutX="30.0" layoutY="50.0" mnemonicParsing="false" onMouseClicked="#set_create" prefHeight="47.0" prefWidth="119.0" text="Create Event">
                <font>
                   <Font size="15.0" />
                </font>
@@ -27,7 +27,7 @@
                   <Insets left="200.0" top="40.0" />
                </HBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="20.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="119.0" text="Post Update">
+            <Button fx:id="btn_postUpdate" layoutX="10.0" layoutY="20.0" mnemonicParsing="false" onMouseClicked="#set_update" prefHeight="47.0" prefWidth="119.0" text="Post Update">
                <HBox.margin>
                   <Insets left="20.0" top="40.0" />
                </HBox.margin>
@@ -35,7 +35,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button layoutX="66.0" layoutY="10.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="164.0" text="View Event Details">
+            <Button fx:id="btn_viewEvent" layoutX="66.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#set_viewEvent" prefHeight="47.0" prefWidth="164.0" text="View Event Details">
                <HBox.margin>
                   <Insets left="20.0" top="40.0" />
                </HBox.margin>
@@ -48,5 +48,13 @@
             <Insets left="20.0" right="20.0" />
          </VBox.margin>
       </HBox>
+      <Button fx:id="btn_logout" mnemonicParsing="false" onMouseClicked="#set_logout" prefHeight="47.0" prefWidth="88.0" text="Logout">
+         <VBox.margin>
+            <Insets left="390.0" top="30.0" />
+         </VBox.margin>
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
    </children>
 </VBox>
