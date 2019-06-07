@@ -1,16 +1,17 @@
 package Models;
 
 
+import DBAdapters.DBEvent;
+
 import java.sql.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Model {
     //Const
     private final String DB_URL = "jdbc:sqlite:resources/db.db";
+    private final String TRNS_BEGIN = "BEGIN TRANSACTION;";
+    private final String COMMIT = "COMMIT;";
+
 
     // helpful attributes
     private ResultSet m_results;
@@ -38,37 +39,100 @@ public class Model {
         return conn;
     }
 
-    /**
-     * checks if a given username already exist
-     *
-     * @param userName - the given username to check
-     * @return - true if exist, false otherwise
-     */
-    private boolean user_exist(String userName) {
-        String sql = "SELECT * FROM Users WHERE UserName = ?";
 
-        try (Connection conn = this.make_connection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    public boolean addEvent(Event event) {
+        int affectedRows = -1;
+        int id = -1;
+        DBEvent dbEvent = new DBEvent(event);
+        String sEvent = dbEvent.insertEvents();
 
-            pstmt.setString(1, userName);
-            m_results = pstmt.executeQuery();
+        try (Connection connection = make_connection();
+             PreparedStatement insertEvent = connection.prepareStatement(sEvent);) {
+            connection.setAutoCommit(false);
 
-            if (!m_results.next()) {
-                return false;
+            //insert event
+            affectedRows = insertEvent.executeUpdate();
+            if (affectedRows != 1){
+                connection.rollback();
+            }else {
+                id = insertEvent.getGeneratedKeys().getInt(1);
+                event.set_id(id);
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+
+            //insert update
+            Statement cur = connection.createStatement();
+            affectedRows = cur.executeUpdate(dbEvent.insertUpdate());
+            if (affectedRows!=1){
+                connection.rollback();
+                throw new SQLException("Failed to insert update. Rolledback");
+            }else {
+                id = cur.getGeneratedKeys().getInt(1);
+                event.get_updates().get(0).set_id(id);
+            }
+
+            // insert categories
+            cur = connection.createStatement();
+            for (String sc : dbEvent.insertEventsCategories())
+                cur.addBatch(sc);
+            affectedRows = cur.executeBatch().length;
+            if (affectedRows!=event.get_categories().size()){
+                connection.rollback();
+                throw new SQLException("Failed to insert categories for event. Rolledback");
+            }
+
+            //insert permmisions
+            cur = connection.createStatement();
+            for (String sp : dbEvent.insertUserPermissions())
+                cur.addBatch(sp);
+            affectedRows = cur.executeBatch().length;
+            if (affectedRows != event.get_users().size()){
+                connection.rollback();
+                throw new SQLException("Failed to insert permissions. Rolledback");
+            }
+
+            //insert event update
+            cur = connection.createStatement();
+            affectedRows = cur.executeUpdate(dbEvent.updateInEvent());
+            if (affectedRows != 1){
+                connection.rollback();
+                throw new SQLException("Failed to insert update of event. Rolledback");
+            }
+
+            //insert accountables
+            cur = connection.createStatement();
+            for (String sa : dbEvent.accountableUsers())
+                cur.addBatch(sa);
+            affectedRows = cur.executeBatch().length;
+            if (affectedRows != event.get_organizations().size()){
+                connection.rollback();
+                throw new SQLException("Failed to create accountables. Rolledback");
+            }
+
+            connection.commit();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
         }
 
         return true;
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Model m = new Model();
-        System.out.println(System.getProperty("user.dir"));
-        Connection connection = m.make_connection();
+        List<AUser> users = new ArrayList<>();
+        users.add(new User("hagai2"));
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category("cat1"));
+        List<Organization> organizations = new ArrayList<>();
+        organizations.add(new Organization(users, "org1"));
+        Event e = new Event("test event", categories, new User("hagai"), "test update", organizations);
+        DBEvent idbAdapter = new DBEvent(e);
+//        int i = m.makeInsert(idbAdapter);
+//        e.set_id(i);
+//        idbAdapter.set_statusOk();
+        m.addEvent(e);
 
-        System.out.println("lalal");
     }
 }

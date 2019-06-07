@@ -8,7 +8,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        System.out.println(getClass().getResource("fxml/mainView.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("fxml/mainView.fxml"));
         primaryStage.setTitle("Emer-Agency");
         Scene scene = new Scene(root, 900, 600);

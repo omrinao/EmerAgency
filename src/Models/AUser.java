@@ -9,6 +9,10 @@ public abstract class AUser {
     protected int _loginErr;
     protected Organization _organiztion;
 
+    public AUser(String _username){
+        this._username = _username;
+    }
+
     public AUser(String _username, String _password, String _email, AccountStatus _status, int _loginErr, Organization _organiztion) {
         this._username = _username;
         this._password = _password;

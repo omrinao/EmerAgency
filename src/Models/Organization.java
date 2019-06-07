@@ -2,7 +2,7 @@ package Models;
 
 import java.util.List;
 
-public abstract class Organization {
+public class Organization {
 
     private List<AUser> _users;
     private String _name;
