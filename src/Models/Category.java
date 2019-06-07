@@ -16,4 +16,9 @@ public class Category {
     public void set_name(String _name) {
         this._name = _name;
     }
+
+    @Override
+    public String toString() {
+        return "'" + get_name() + "'";
+    }
 }

@@ -1,5 +1,6 @@
 package Models;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Event {
@@ -13,6 +14,9 @@ public class Event {
     private List<Update> _updates;
     private Map<Organization, AUser> _organizations;
     private int _id;
+
+
+    public Event(){}
 
     public Event(String _title, List<Category> _categories, AUser _creator, String initUpdate, List<Organization> _orgs) {
         this._title = _title;
@@ -45,8 +49,9 @@ public class Event {
         this._title = _title;
     }
 
-    public Date get_published() {
-        return _published;
+    public String get_published() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat();
+        return dateFormat.format(new Date());
     }
 
     public void set_published(Date _published) {
@@ -107,6 +112,15 @@ public class Event {
 
     public void set_id(int _id) {
         this._id = _id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Event))
+            return false;
+        Event ev = (Event) obj;
+        return _id == ev._id;
+
     }
 }
 

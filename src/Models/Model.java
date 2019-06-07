@@ -4,14 +4,15 @@ package Models;
 import DBAdapters.DBEvent;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 public class Model {
     //Const
     private final String DB_URL = "jdbc:sqlite:resources/db.db";
-    private final String TRNS_BEGIN = "BEGIN TRANSACTION;";
-    private final String COMMIT = "COMMIT;";
-
 
     // helpful attributes
     private ResultSet m_results;
@@ -25,7 +26,7 @@ public class Model {
      *
      * @return - a connection if success, null otherwise
      */
-    public Connection make_connection() {
+    private Connection make_connection() {
 
         Connection conn = null;
         try {
@@ -119,20 +120,71 @@ public class Model {
     }
 
 
+    public void watchEvents(List<Category> cat){
+        String sq = "select * from 'categoriesInEvents' where category in (" + cat.toString().substring(1, cat.toString().length()-1) + ")";
+
+        try (Connection connection = make_connection();
+        PreparedStatement getEventsIds = connection.prepareStatement(sq)){
+
+            List<Event> ret = new ArrayList<>();
+
+            ResultSet rs = getEventsIds.executeQuery();
+
+            List<Integer> eventIds = new ArrayList<>();
+            while (rs.next()){
+                eventIds.add(rs.getInt(1));
+            }
+
+            String se = "select * from 'events' where id IN (" + eventIds.toString().substring(1, eventIds.toString().length()-1) +")";
+            PreparedStatement idStatement = connection.prepareStatement(se);
+            rs = getEventsIds.executeQuery();
+
+            while (rs.next()){
+                Event ev = new Event();
+                ev.set_id(rs.getInt(1));
+                ev.set_published(new Date());
+                ev.set_creator(new User(rs.getString(5)));
+
+                ret.add(ev);
+            }
+
+
+
+
+        }
+        catch (SQLException ex){
+
+        }
+    }
+
     public static void main(String[] args) {
         Model m = new Model();
-        List<AUser> users = new ArrayList<>();
-        users.add(new User("hagai2"));
-        List<Category> categories = new ArrayList<>();
-        categories.add(new Category("cat1"));
-        List<Organization> organizations = new ArrayList<>();
-        organizations.add(new Organization(users, "org1"));
-        Event e = new Event("test event", categories, new User("hagai"), "test update", organizations);
-        DBEvent idbAdapter = new DBEvent(e);
-//        int i = m.makeInsert(idbAdapter);
-//        e.set_id(i);
-//        idbAdapter.set_statusOk();
-        m.addEvent(e);
+//        List<AUser> users = new ArrayList<>();
+//        users.add(new User("hagai2"));
+//        List<Category> categories = new ArrayList<>();
+//        categories.add(new Category("cat1"));
+//        List<Organization> organizations = new ArrayList<>();
+//        organizations.add(new Organization(users, "org1"));
+//        Event e = new Event("test event", categories, new User("hagai"), "test update", organizations);
+//        DBEvent idbAdapter = new DBEvent(e);
+////        int i = m.makeInsert(idbAdapter);
+////        e.set_id(i);
+////        idbAdapter.set_statusOk();
+//        m.addEvent(e);
+
+
+//        m.watchEvents(categories);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat();
+        Date d = new Date();
+        Date d2 = null;
+        try {
+            d2 = dateFormat.parse(dateFormat.format(d));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println(d);
+        System.out.println(d2);
 
     }
 }
