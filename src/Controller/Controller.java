@@ -1,10 +1,14 @@
 package Controller;
-import Models.Model;
+import Models.*;
 import View.*;
 
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
+
+    Model m = new Model();
 
     //login screen
 
@@ -16,23 +20,47 @@ public class Controller {
     //create event screen
 
     public String create_event(String title, ArrayList<String> categories, String description, ArrayList<String> org){
-        return "success";
+        List<Category> cat = new ArrayList<Category>();
+        int index;
+        for (int i = 0; i < categories.size(); i++){
+            for(int j = 0; j < Main._categories.size(); j++){
+                if(Main._categories.get(j).get_name().equals(categories.get(i))){
+                    cat.add(Main._categories.get(j));
+                }
+            }
+        }
+
+        List<Organization> organizations = new ArrayList<Organization>();
+        for (int i = 0; i < org.size(); i++){
+            for(int j = 0; j < Main._organizations.size(); j++){
+                if(Main._organizations.get(j).get_name().equals(org.get(i))){
+                    organizations.add(Main._organizations.get(j));
+                }
+            }
+        }
+
+        Event create = new Event(title, cat, loginView.userObject, description, organizations);
+        boolean response = m.addEvent(create);
+        if (response)
+            return "Success";
+        return "Failure";
     }
 
     public ArrayList<String> getCategories(){
+        List<Category> cat = m.getCategories();
         ArrayList<String> toReturn = new ArrayList<>();
-        toReturn.add("Fire");
-        toReturn.add("Murder");
-        toReturn.add("Fired");
-        toReturn.add("Murdered");
-        toReturn.add("Firedede");
+        for(int i = 0; i < cat.size(); i++){
+            toReturn.add(cat.get(i).get_name());
+        }
         return toReturn;
     }
 
     public ArrayList<String> getOrg(){
+        List<Organization> org = m.getOrganizations();
         ArrayList<String> toReturn = new ArrayList<>();
-        toReturn.add("Police");
-        toReturn.add("Fire Fighters");
+        for(int i = 0; i < org.size(); i++){
+            toReturn.add(org.get(i).get_name());
+        }
         return toReturn;
     }
 
@@ -40,7 +68,7 @@ public class Controller {
     //post update screen
 
     public String post_update(ArrayList<String> category, String event, String description){
-        return "success";
+        return "Success";
     }
 
     public ArrayList<String> getEvents(String category, String username){
