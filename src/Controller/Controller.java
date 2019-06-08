@@ -12,6 +12,12 @@ public class Controller {
     public static List<Organization> _organizations;
     public static List<Category> _categories;
 
+
+    public Controller(){
+        _m = new Model();
+        initController();
+    }
+
     public void setModel(Model m ){
         this._m = m;
     }
@@ -34,18 +40,18 @@ public class Controller {
         List<Category> cat = new ArrayList<Category>();
         int index;
         for (int i = 0; i < categories.size(); i++){
-            for(int j = 0; j < Main._categories.size(); j++){
-                if(Main._categories.get(j).get_name().equals(categories.get(i))){
-                    cat.add(Main._categories.get(j));
+            for(int j = 0; j < _categories.size(); j++){
+                if(_categories.get(j).get_name().equals(categories.get(i))){
+                    cat.add(_categories.get(j));
                 }
             }
         }
 
         List<Organization> organizations = new ArrayList<Organization>();
         for (int i = 0; i < org.size(); i++){
-            for(int j = 0; j < Main._organizations.size(); j++){
-                if(Main._organizations.get(j).get_name().equals(org.get(i))){
-                    organizations.add(Main._organizations.get(j));
+            for(int j = 0; j < _organizations.size(); j++){
+                if(_organizations.get(j).get_name().equals(org.get(i))){
+                    organizations.add(_organizations.get(j));
                 }
             }
         }

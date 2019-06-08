@@ -15,20 +15,18 @@ import java.util.List;
 
 public class Main extends Application {
     public static Stage pStage;
-    public static List<Organization> _organizations;
-    public static List<Category> _categories;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         Model m = new Model();
         pStage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../fxml/login.fxml"));
 
 
         pStage.setTitle("Emer-Agency");
         Scene scene = new Scene(root, 900, 600);
-        scene.getStylesheets().add(getClass().getResource("css/ViewStyle.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("../css/ViewStyle.css").toExternalForm());
         pStage.setScene(scene);
         pStage.show();
 
