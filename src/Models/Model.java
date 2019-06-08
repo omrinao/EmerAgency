@@ -187,4 +187,36 @@ public class Model {
         System.out.println(d2);
 
     }
+
+
+    public List<Organization> getOrganizations() {
+        Organization police = new Organization(new ArrayList<AUser>(), "Police");
+        Organization mda = new Organization(new ArrayList<AUser>(), "MDA");
+        Organization firefighters = new Organization(new ArrayList<AUser>(), "Fire Figthters");
+
+        List<Organization> organizations = new ArrayList<Organization>();
+        organizations.add(police);
+        organizations.add(mda);
+        organizations.add(firefighters);
+
+        return organizations;
+    }
+
+
+    public List<Category> getCategories() {
+        Category robbery = new Category("Robbery");
+        Category murder = new Category("Murder");
+        Category mci = new Category("MCI"); // multiple casualty incident
+        Category fire = new Category("Fire");
+        Category kidnapping = new Category("Kidnapping");
+
+        List<Category> categories = new ArrayList<Category>();
+        categories.add(robbery);
+        categories.add(murder);
+        categories.add(mci);
+        categories.add(fire);
+        categories.add(kidnapping);
+
+        return categories;
+    }
 }

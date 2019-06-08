@@ -134,13 +134,19 @@ public class postUpdateView extends AView {
         if (cb_c5.isSelected()){
             categories.add(cb_c5.getText());
         }
-        String title = cb_event.getValue().toString();
+        String title = "";
+
+        if (cb_event != null && cb_event.getValue() != null) {
+            title = cb_event.getValue().toString();
+        }
         String description = ta_description.getText();
 
         if (title.isEmpty() || description.isEmpty()){
             popProblem("You need to fill in all fields\n");
             return;
         }
+
+
         String response = _controller.post_update(categories, title, description);
         if (!response.equals("success")) {
             popProblem("Create event failed!\n" +
