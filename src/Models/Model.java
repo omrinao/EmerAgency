@@ -5,22 +5,15 @@ import Controller.Controller;
 import DBAdapters.DBEvent;
 
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
-import java.util.*;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 
 public class Model {
     //Const
     private final String DB_URL = "jdbc:sqlite:resources/db.db";
-
-    // helpful attributes
-    private ResultSet m_results;
 
     public Model() {
 
@@ -46,9 +39,44 @@ public class Model {
     }
 
     /**
+     * get user from login
+     * @param username - username
+     * @param password - password
+     * @return - AUser if success, null if failed
+     */
+    public AUser login(String username, String password){
+        String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+
+        try (Connection conn = this.make_connection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+            ResultSet rs = pstmt.executeQuery();
+
+            User user = null;
+            if (rs.next()) {
+                user = new User(rs.getString(1));
+                user.set_password(rs.getString(2));
+                user.set_email(rs.getString(3));
+                user.set_status(AccountStatus.valueOf(rs.getString(4)));
+                user.set_loginErr(rs.getInt(5));
+                user.set_organiztion(Controller.getOrg(rs.getString(6)));
+                user.set_rank(rs.getInt(7));
+            }
+
+            return user;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+    }
+
+    /**
      * method to add an event to the DB
      * @param event - the event to be added
-     * @return
+     * @return - true for success, false otherwise
      */
     public boolean addEvent(Event event) {
         int affectedRows = -1;
@@ -128,7 +156,11 @@ public class Model {
         return true;
     }
 
-
+    /**
+     * getter for events of a given category
+     * @param cat - list of categories
+     * @return - list of events
+     */
     public List<Event> watchEvents(List<Category> cat){
         String sq = "select * from 'categoriesInEvents' where category in (" + cat.toString().substring(1, cat.toString().length()-1) + ")";
 
@@ -212,6 +244,11 @@ public class Model {
     }
 
 
+    /**
+     * used to add update on an event
+     * @param update - the update needed
+     * @return true for success, false otherwise
+     */
     public boolean addUpdate(Update update){
         List<Update> up = update.get_event().get_updates();
         String addUpdate = "insert into 'updates' values(NULL,'" + update.get_published() + "','" + up.get(up.size()-1).get_id() + "','" + update.get_description() + "');";
@@ -268,9 +305,13 @@ public class Model {
 //        m.addEvent(e);
 
         m.addUpdate(new Update(e, null, LocalDateTime.now(), "test update 2"));
-        Controller c = new Controller();
-        c.setModel(m);
-        c.initController();
+        try {
+            Controller c = Controller.getInstance();
+        }
+        catch (Exception ex){
+            System.out.println("lala");
+        }
+
 
 
         List<Event> el = m.watchEvents(categories);
@@ -291,20 +332,41 @@ public class Model {
     }
 
 
-    public List<Organization> getOrganizations() {
-        Organization police = new Organization(new ArrayList<AUser>(), "Police");
-        Organization mda = new Organization(new ArrayList<AUser>(), "MDA");
-        Organization firefighters = new Organization(new ArrayList<AUser>(), "Fire Figthters");
+    /**
+     * getter for all organizations
+     * @return - list of organizations and their users
+     * @throws SQLException - if failed to retrieve
+     */
+    public List<Organization> getOrganizations() throws SQLException {
+        try (Connection connection = make_connection();){
+            HashMap<String, Organization> tmp = new HashMap<>();
 
-        List<Organization> organizations = new ArrayList<Organization>();
-        organizations.add(police);
-        organizations.add(mda);
-        organizations.add(firefighters);
+            String query = "select * from users inner join organizations on users.organization = organizations.name order by users.organization asc";
+            ResultSet rs = connection.prepareStatement(query).executeQuery();
+            while (rs.next()){
+                String name = rs.getString(8);
+                tmp.putIfAbsent(name, new Organization(new ArrayList<>(), name));
 
-        return organizations;
+                User user = new User(rs.getString(1));
+                user.set_password(rs.getString(2));
+                user.set_email(rs.getString(3));
+                user.set_status(AccountStatus.valueOf(rs.getString(4)));
+                user.set_loginErr(rs.getInt(5));
+                user.set_organiztion(tmp.get(name));
+                user.set_rank(rs.getInt(7));
+
+                tmp.get(name).add_user(user);
+            }
+
+            return new ArrayList<>(tmp.values());
+        }
     }
 
 
+    /**
+     * getter for all categories
+     * @return - a list of categories
+     */
     public List<Category> getCategories() {
         Category robbery = new Category("Robbery");
         Category murder = new Category("Murder");

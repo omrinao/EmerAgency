@@ -5,7 +5,19 @@ import javafx.scene.control.Alert;
 
 public abstract class AView {
 
-    protected Controller _controller = new Controller();
+    protected Controller _controller;
+    {
+
+         try{
+             _controller = Controller.getInstance();
+         }
+         catch (Exception e){
+             popProblem(e.getMessage());
+             System.exit(0);
+         }
+    }
+
+
     protected Scene _cameFrom;
 
 

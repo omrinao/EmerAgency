@@ -1,5 +1,6 @@
 package View;
 
+import Models.AUser;
 import Models.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +21,7 @@ public class loginView extends AView{
     public TextField tf_userName;
     public PasswordField pf_password;
     public static String username = "";
-    public static User userObject;
+    public static AUser userObject;
 
     /**
      * method to confirm login
@@ -35,15 +36,15 @@ public class loginView extends AView{
             return;
         }
 
-        String response = _controller.login_send(username, password);
-        if (!response.equals("success")) {
+        AUser response = _controller.login_send(username, password);
+        if (response == null) {
             popProblem("Login failed!\n" +
                     "Make sure you typed in a proper Username and Password");
             return;
         }
 
         username = user;
-        userObject = new User(user);
+        userObject = response;
 
         Stage login = (Stage)btn_login.getScene().getWindow();
         login.close();

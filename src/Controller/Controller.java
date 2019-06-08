@@ -3,6 +3,8 @@ import Models.*;
 import View.*;
 
 
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +13,16 @@ public class Controller {
     private Model _m;
     public static List<Organization> _organizations;
     public static List<Category> _categories;
+    private static Controller _instance;
 
+    public static Controller getInstance() throws Exception{
+        if (_instance == null){
+            _instance = new Controller();
+        }
+        return _instance;
+    }
 
-    public Controller(){
+    private Controller() throws Exception{
         _m = new Model();
         initController();
     }
@@ -22,15 +31,21 @@ public class Controller {
         this._m = m;
     }
 
-    public void initController(){
-        _organizations = _m.getOrganizations();
-        _categories = _m.getCategories();
+    public void initController() throws Exception{
+        try {
+            _organizations = _m.getOrganizations();
+            _categories = _m.getCategories();
+        }
+        catch (SQLException ex){
+            throw new Exception("System crashed, please restart the system");
+        }
+
     }
 
     //login screen
 
-    public String login_send(String username, String password){
-        return "success";
+    public AUser login_send(String username, String password){
+        return _m.login(username, password);
     }
 
 
@@ -73,10 +88,9 @@ public class Controller {
     }
 
     public ArrayList<String> getOrg(){
-        List<Organization> org = _m.getOrganizations();
         ArrayList<String> toReturn = new ArrayList<>();
-        for(int i = 0; i < org.size(); i++){
-            toReturn.add(org.get(i).get_name());
+        for(int i = 0; i < _organizations.size(); i++){
+            toReturn.add(_organizations.get(i).get_name());
         }
         return toReturn;
     }
@@ -84,8 +98,9 @@ public class Controller {
 
     //post update screen
 
-    public String post_update(ArrayList<String> category, String event, String description){
-        return "Success";
+    public String post_update( Event event, String description){
+        Update update = new Update(event, null, LocalDateTime.now(), description);
+        return _m.addUpdate(update) ? "success" : "failed";
     }
 
     public ArrayList<String> getEvents(String category, String username){

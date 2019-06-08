@@ -40,4 +40,8 @@ public class Organization {
 
         return null;
     }
+
+    public void add_user(AUser user){
+        _users.add(user);
+    }
 }

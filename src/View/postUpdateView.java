@@ -1,5 +1,6 @@
 package View;
 
+import Models.Event;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -147,7 +148,7 @@ public class postUpdateView extends AView {
         }
 
 
-        String response = _controller.post_update(categories, title, description);
+        String response = _controller.post_update(new Event(), description); //TODO: add event attribute configured to the one selected by user (which he wants to post a new update to)
         if (!response.equals("success")) {
             popProblem("Create event failed!\n" +
                     "Make sure you typed in proper details");
