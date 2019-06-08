@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox onMouseMoved="#prepareView" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.viewEvent">
+<VBox onMouseMoved="#prepareView" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.viewEvent">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="937.0" text="View Event Details" textAlignment="CENTER">
          <font>
@@ -26,27 +26,27 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <CheckBox fx:id="cb_c1" mnemonicParsing="false" onMouseClicked="#set_events">
+            <CheckBox fx:id="cb_c1" mnemonicParsing="false" onMouseClicked="#set_events" textFill="BEIGE">
                <HBox.margin>
                   <Insets left="10.0" top="4.0" />
                </HBox.margin>
             </CheckBox>
-            <CheckBox fx:id="cb_c2" layoutX="177.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#set_events">
+            <CheckBox fx:id="cb_c2" layoutX="177.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#set_events" textFill="BEIGE">
                <HBox.margin>
                   <Insets left="10.0" top="4.0" />
                </HBox.margin>
             </CheckBox>
-            <CheckBox fx:id="cb_c3" layoutX="177.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#set_events">
+            <CheckBox fx:id="cb_c3" layoutX="177.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#set_events" textFill="BEIGE">
                <HBox.margin>
                   <Insets left="10.0" top="4.0" />
                </HBox.margin>
             </CheckBox>
-            <CheckBox fx:id="cb_c4" layoutX="250.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#set_events">
+            <CheckBox fx:id="cb_c4" layoutX="250.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#set_events" textFill="BEIGE">
                <HBox.margin>
                   <Insets left="10.0" top="4.0" />
                </HBox.margin>
             </CheckBox>
-            <CheckBox fx:id="cb_c5" layoutX="323.0" layoutY="10.0" mnemonicParsing="false">
+            <CheckBox fx:id="cb_c5" layoutX="323.0" layoutY="10.0" mnemonicParsing="false" textFill="BEIGE">
                <HBox.margin>
                   <Insets left="10.0" top="4.0" />
                </HBox.margin>
@@ -75,12 +75,12 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="btn_viewEvent" mnemonicParsing="false" prefHeight="38.0" prefWidth="102.0" text="View Event">
+            <Button fx:id="btn_viewEvent" mnemonicParsing="false" onMouseClicked="#set_viewEvent" prefHeight="38.0" prefWidth="102.0" text="View Event">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btn_back" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#set_back" prefHeight="39.0" prefWidth="60.0" text="Back">
+            <Button fx:id="btn_back" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#set_back" onMouseEntered="#prepareView" prefHeight="39.0" prefWidth="60.0" text="Back">
                <font>
                   <Font size="15.0" />
                </font>

@@ -24,3 +24,7 @@
     -fx-stroke-width: 0.5px;
     -fx-font-weight: bold;
 }
+
+.choice-box .menu-item > .label { -fx-text-fill: #696969; }
+.choice-box .menu-item:focused > .label { -fx-text-fill: #f5f5dc; }
+.choice-box > .label { -fx-text-fill: #696969; }

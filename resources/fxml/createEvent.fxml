@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox onMouseMoved="#prepareView" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.createView">
+<VBox onMouseMoved="#prepareView" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.createView">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="85.0" prefWidth="900.0" text="Create Event" textAlignment="CENTER">
          <font>
@@ -46,27 +46,27 @@
             </Label>
             <HBox prefHeight="24.0" prefWidth="394.0">
                <children>
-                  <CheckBox fx:id="cb_c1" mnemonicParsing="false">
+                  <CheckBox fx:id="cb_c1" mnemonicParsing="false" textFill="#f5f5dc">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </CheckBox>
-                  <CheckBox fx:id="cb_c2" mnemonicParsing="false">
+                  <CheckBox fx:id="cb_c2" mnemonicParsing="false" textFill="#f5f5dc">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </CheckBox>
-                  <CheckBox fx:id="cb_c3" mnemonicParsing="false">
+                  <CheckBox fx:id="cb_c3" mnemonicParsing="false" textFill="#f5f5dc">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </CheckBox>
-                  <CheckBox fx:id="cb_c4" mnemonicParsing="false">
+                  <CheckBox fx:id="cb_c4" mnemonicParsing="false" textFill="BEIGE">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </CheckBox>
-                  <CheckBox fx:id="cb_c5" layoutX="113.0" layoutY="10.0" mnemonicParsing="false">
+                  <CheckBox fx:id="cb_c5" layoutX="113.0" layoutY="10.0" mnemonicParsing="false" textFill="BEIGE">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -107,17 +107,17 @@
             </Label>
             <HBox prefHeight="24.0" prefWidth="394.0">
                <children>
-                  <CheckBox fx:id="cb_police" mnemonicParsing="false" text="Police">
+                  <CheckBox fx:id="cb_police" mnemonicParsing="false" text="Police" textFill="#f5f5dc">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </CheckBox>
-                  <CheckBox fx:id="cb_mda" mnemonicParsing="false" text="MDA">
+                  <CheckBox fx:id="cb_mda" mnemonicParsing="false" text="MDA" textFill="BEIGE">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </CheckBox>
-                  <CheckBox fx:id="cb_firefighter" mnemonicParsing="false" text="Fire Fighters">
+                  <CheckBox fx:id="cb_firefighter" mnemonicParsing="false" text="Fire Fighters" textFill="#f5f5dc">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
