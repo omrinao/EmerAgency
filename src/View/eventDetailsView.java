@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class eventDetailsView extends AView {
     public TextField tf_title;
@@ -18,6 +19,8 @@ public class eventDetailsView extends AView {
     public TextArea ta_description;
     public TextArea ta_org;
     public Button btn_back;
+
+    private static ArrayList<String> details;
 
     /**
      * method to set event view screen
@@ -41,5 +44,21 @@ public class eventDetailsView extends AView {
         }
         mouseEvent.consume();
 
+    }
+
+    public void prepareView(MouseEvent mouseEvent){
+        if(details != null && details.size() > 0 && tf_title != null && tf_title.getText().isEmpty()){
+            tf_title.setText(details.get(0));
+            tf_categories.setText(details.get(1));
+            ta_description.setText(details.get(2));
+            ta_org.setText(details.get(3));
+        }
+    }
+
+    public static void setDetails(ArrayList<String> info){
+        details = new ArrayList<>();
+        for (int i = 0; i < info.size(); i++){
+            details.add(info.get(i));
+        }
     }
 }

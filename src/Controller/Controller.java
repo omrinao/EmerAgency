@@ -39,37 +39,32 @@ public class Controller {
 
     //post update screen
 
-    public String post_update(String category, String event, String description){
+    public String post_update(ArrayList<String> category, String event, String description){
         return "success";
     }
 
     public ArrayList<String> getEvents(String category, String username){
         ArrayList<String> toReturn = new ArrayList<>();
-        toReturn.add("Fire very hard fire");
-        toReturn.add("Murder");
-        toReturn.add("Fired");
-        toReturn.add("Murdered");
-        toReturn.add("Firedede");
+        if (category.equals("Murder")){
+            toReturn.add("Fire very hard fire");
+            toReturn.add("Murder");
+            toReturn.add("Fired");
+            toReturn.add("Murdered");
+            toReturn.add("Firedede");
+        }
         return toReturn;
-    }
-
-
-    //view event screen
-
-    public ArrayList<String> getCategoriesToView(String username){
-        return new ArrayList<String>();
-    }
-
-
-    public ArrayList<String> getEventToView(String category){
-        return new ArrayList<>();
     }
 
 
     //view event details screen
 
-    public ArrayList<String> getEventDetails(String category, String event){
-        return new ArrayList<>();
+    public ArrayList<String> getEventDetails(ArrayList<String> category, String event){
+        ArrayList<String> details = new ArrayList<>();
+        details.add("Koteret");
+        details.add("Categoryot");
+        details.add("Pratim");
+        details.add("Irgunim");
+        return details;
     }
 
 }

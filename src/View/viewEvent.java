@@ -3,10 +3,7 @@ package View;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -22,6 +19,16 @@ public class viewEvent extends AView {
     public ChoiceBox cb_event;
     public Button btn_viewEvent;
     public Button btn_back;
+
+    //event details
+    public TextField tf_title;
+    public TextField tf_categories;
+    public TextArea ta_description;
+    public TextArea ta_org;
+    public Button btn_backDetails;
+
+    private ArrayList<String> details;
+
 
     /**
      * method to set main screen
@@ -62,26 +69,98 @@ public class viewEvent extends AView {
     public void set_events(MouseEvent mouseEvent){
         ArrayList<String> events = new ArrayList<>();
         if (cb_c1.isSelected()){
+            events.removeAll(_controller.getEvents(cb_c1.getText(), loginView.username));
             events.addAll(_controller.getEvents(cb_c1.getText(), loginView.username));
         }
         if (cb_c2.isSelected()){
+            events.removeAll(_controller.getEvents(cb_c2.getText(), loginView.username));
             events.addAll(_controller.getEvents(cb_c2.getText(), loginView.username));
         }
         if (cb_c3.isSelected()){
+            events.removeAll(_controller.getEvents(cb_c3.getText(), loginView.username));
             events.addAll(_controller.getEvents(cb_c3.getText(), loginView.username));
         }
         if (cb_c4.isSelected()){
+            events.removeAll(_controller.getEvents(cb_c4.getText(), loginView.username));
             events.addAll(_controller.getEvents(cb_c4.getText(), loginView.username));
         }
         if (cb_c5.isSelected()){
+            events.removeAll(_controller.getEvents(cb_c5.getText(), loginView.username));
             events.addAll(_controller.getEvents(cb_c5.getText(), loginView.username));
         }
+        if (!cb_c1.isSelected()){
+            events.removeAll(_controller.getEvents(cb_c1.getText(), loginView.username));
+        }
+        if (!cb_c2.isSelected()){
+            events.removeAll(_controller.getEvents(cb_c2.getText(), loginView.username));
+        }
+        if (!cb_c3.isSelected()){
+            events.removeAll(_controller.getEvents(cb_c3.getText(), loginView.username));
+        }
+        if (!cb_c4.isSelected()){
+            events.removeAll(_controller.getEvents(cb_c4.getText(), loginView.username));
+        }
+        if (!cb_c5.isSelected()){
+            events.removeAll(_controller.getEvents(cb_c5.getText(), loginView.username));
+        }
+
+        cb_event.getItems().clear();
 
         if (events.size() > 0){
             cb_event.getItems().addAll(events);
             cb_event.setDisable(false);
         }
+        else{
+            cb_event.setDisable(true);
+        }
     }
 
+
+    /**
+     * method to set view event details screen
+     * @param mouseEvent - mouse click on 'view event details' button on view event screen
+     */
+    public void set_viewEvent(MouseEvent mouseEvent) {
+
+        String event = cb_event.getValue().toString();
+        ArrayList<String> categories = new ArrayList<>();
+        if (cb_c1.isSelected()){
+            categories.add(cb_c1.getText());
+        }
+        if (cb_c2.isSelected()){
+            categories.add(cb_c2.getText());
+        }
+        if (cb_c3.isSelected()){
+            categories.add(cb_c3.getText());
+        }
+        if (cb_c4.isSelected()){
+            categories.add(cb_c4.getText());
+        }
+        if (cb_c5.isSelected()){
+            categories.add(cb_c5.getText());
+        }
+        ArrayList<String> eventDetails = _controller.getEventDetails(categories, event);
+
+        Stage mainView = (Stage)btn_back.getScene().getWindow();
+        try {
+            Stage createStage = mainView;
+            createStage.setTitle("Emer-Agency");
+            //loading main screen
+            Parent root = FXMLLoader.load(getClass().getResource("../fxml/eventDetails.fxml"));
+            Scene scene = new Scene(root, 900, 600);
+            scene.getStylesheets().add(getClass().getResource("../css/ViewStyle.css").toExternalForm());
+            createStage.setScene(scene);
+            details = new ArrayList<>();
+            for (int i = 0; i < eventDetails.size(); i++){
+                details.add(eventDetails.get(i));
+            }
+            createStage.show();
+            eventDetailsView.setDetails(details);
+
+        } catch (IOException e) {
+            popProblem("Error while trying to load main screen interface\n" + e.getMessage());
+        }
+        mouseEvent.consume();
+    }
 
 }
