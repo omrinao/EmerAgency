@@ -75,7 +75,7 @@ public class DBEvent{
         String PERIOD = "','";
 
         String ans = INSERT.concat("'events'('id','title','published','status','creator') VALUES (NULL,'").concat(_base.get_title());
-        ans = ans.concat(PERIOD).concat(_base.get_published().toString()).concat(PERIOD).concat(_base.get_status().toString());
+        ans = ans.concat(PERIOD).concat(_base.get_published()).concat(PERIOD).concat(_base.get_status().toString());
         ans = ans.concat(PERIOD).concat(_base.get_creator().get_username()).concat("');");
 
 
@@ -119,7 +119,7 @@ public class DBEvent{
         String INSERT = "INSERT INTO ";
         String PERIOD = "','";
 
-        String ans = INSERT.concat("'updates'('id','published','previous','description') VALUES (NULL,'").concat(new Date().toString());
+        String ans = INSERT.concat("'updates'('id','published','previous','description') VALUES (NULL,'").concat(_base.get_updates().get(0).get_published());
         ans = ans.concat(PERIOD).concat("NULL").concat(PERIOD).concat(_base.get_updates().get(0).get_description());
         ans = ans.concat("');");
 

@@ -1,22 +1,30 @@
 package Models;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Event {
 
     private String _title;
-    private Date _published;
+    private String _published;
     private EventStatus _status;
     private List<Category> _categories;
     private AUser _creator;
     private Map<AUser, EventPermission> _users;
-    private List<Update> _updates;
+    private TreeMap<Integer, Update> _updates;
     private Map<Organization, AUser> _organizations;
     private int _id;
+    private DateTimeFormatter _df = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
 
-    public Event(){}
+    public Event(){
+        _updates = new TreeMap<>();
+        _organizations = new HashMap<>();
+        _categories = new ArrayList<>();
+        _users = new HashMap<>();
+    }
 
     public Event(String _title, List<Category> _categories, AUser _creator, String initUpdate, List<Organization> _orgs) {
         this._title = _title;
@@ -33,13 +41,21 @@ public class Event {
             new Notification(notified, this);
         });
 
-        _published = new Date();
+        _published = _df.format(LocalDateTime.now());
         _status = EventStatus.inProgress;
-        _updates = new ArrayList<>();
-        _updates.add(new Update(this, null, new Date(), initUpdate));
+        _updates = new TreeMap<>();
+        _updates.put(0, new Update(this, null, LocalDateTime.now(), initUpdate));
 
     }
 
+
+    public void add_update(Update u){
+        _updates.put(u.get_id(), u);
+    }
+
+    public Update get_update(int _id){
+        return _updates.get(_id);
+    }
 
     public String get_title() {
         return _title;
@@ -50,11 +66,14 @@ public class Event {
     }
 
     public String get_published() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat();
-        return dateFormat.format(new Date());
+        return _published;
     }
 
-    public void set_published(Date _published) {
+    public void set_published(LocalDateTime _published) {
+        this._published = _df.format(_published);
+    }
+
+    public void set_published(String _published) {
         this._published = _published;
     }
 
@@ -91,11 +110,19 @@ public class Event {
     }
 
     public List<Update> get_updates() {
-        return _updates;
+        ArrayList<Update> ret = new ArrayList<>();
+        for (Integer i : _updates.navigableKeySet()){
+            ret.add(_updates.get(i));
+        }
+        return ret;
     }
 
     public void set_updates(List<Update> _updates) {
-        this._updates = _updates;
+        TreeMap<Integer, Update> ret = new TreeMap<>();
+        for (Update u : _updates)
+            ret.put(u.get_id(), u);
+
+        this._updates = ret;
     }
 
     public Map<Organization, AUser> get_organizations() {

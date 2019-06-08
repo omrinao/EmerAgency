@@ -1,19 +1,26 @@
 package Models;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Update {
 
     private int _id;
     private Update _before;
-    private Date _published;
+    private String _published;
     private Event _event;
     private String _description;
+    private DateTimeFormatter _df = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-    public Update(Event _event, Update _before, Date _puclished, String _description) {
+    public Update(Event ev, int id){
+        this._event = ev;
+        this._id = id;
+    }
+
+    public Update(Event _event, Update _before, LocalDateTime _puclished, String _description) {
         this._event = _event;
         this._before = _before;
-        this._published = _puclished;
+        this._published = _df.format(_puclished);
         this._description = _description;
     }
 
@@ -33,11 +40,15 @@ public class Update {
         this._before = _before;
     }
 
-    public Date get_published() {
+    public String get_published() {
         return _published;
     }
 
-    public void set_published(Date _published) {
+    public void set_published(LocalDateTime _published) {
+        this._published = _df.format(_published);
+    }
+
+    public void set_published(String _published) {
         this._published = _published;
     }
 

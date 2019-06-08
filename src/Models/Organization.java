@@ -32,4 +32,12 @@ public class Organization {
     public void set_name(String _name) {
         this._name = _name;
     }
+
+    public AUser get_user(String name){
+        for (AUser au : _users)
+            if (au.get_username().equals(name))
+                return au;
+
+        return null;
+    }
 }
