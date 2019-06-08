@@ -8,7 +8,18 @@ import java.util.List;
 
 public class Controller {
 
-    Model m = new Model();
+    private Model _m;
+    public static List<Organization> _organizations;
+    public static List<Category> _categories;
+
+    public void setModel(Model m ){
+        this._m = m;
+    }
+
+    public void initController(){
+        _organizations = _m.getOrganizations();
+        _categories = _m.getCategories();
+    }
 
     //login screen
 
@@ -40,14 +51,14 @@ public class Controller {
         }
 
         Event create = new Event(title, cat, loginView.userObject, description, organizations);
-        boolean response = m.addEvent(create);
+        boolean response = _m.addEvent(create);
         if (response)
             return "Success";
         return "Failure";
     }
 
     public ArrayList<String> getCategories(){
-        List<Category> cat = m.getCategories();
+        List<Category> cat = _m.getCategories();
         ArrayList<String> toReturn = new ArrayList<>();
         for(int i = 0; i < cat.size(); i++){
             toReturn.add(cat.get(i).get_name());
@@ -56,7 +67,7 @@ public class Controller {
     }
 
     public ArrayList<String> getOrg(){
-        List<Organization> org = m.getOrganizations();
+        List<Organization> org = _m.getOrganizations();
         ArrayList<String> toReturn = new ArrayList<>();
         for(int i = 0; i < org.size(); i++){
             toReturn.add(org.get(i).get_name());
@@ -93,6 +104,15 @@ public class Controller {
         details.add("Pratim");
         details.add("Irgunim");
         return details;
+    }
+
+    public static Organization getOrg(String name){
+        for (Organization org : _organizations){
+            if (org.get_name().equals(name))
+                return org;
+        }
+
+        return _organizations.get(0);
     }
 
 }

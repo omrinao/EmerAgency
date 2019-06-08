@@ -22,8 +22,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         Model m = new Model();
-        _organizations = m.getOrganizations();
-        _categories = m.getCategories();
         pStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
 

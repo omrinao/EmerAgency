@@ -2,6 +2,7 @@ package Controller;
 
 import Models.Category;
 import Models.Event;
+import Models.IModel;
 import Models.Update;
 
 public interface IController {
@@ -11,5 +12,10 @@ public interface IController {
     void publishEvent(Event event);
 
     void publishUpdate(Update update);
+
+    void setModel(IModel model);
+
+    void initController();
+
 
 }

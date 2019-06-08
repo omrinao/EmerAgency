@@ -1,12 +1,14 @@
 package Models;
 
 
+import Controller.Controller;
 import DBAdapters.DBEvent;
 
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
@@ -189,7 +191,7 @@ public class Model {
             while(rs.next()){
                 int id = rs.getInt(1);
                 Event ev = events.get(id);
-//                ev.get_organizations().put()
+                ev.get_organizations().put(Controller.getOrg(rs.getString(2)), new User(rs.getString(3)));
             }
 
 
@@ -209,21 +211,66 @@ public class Model {
         }
     }
 
+
+    public boolean addUpdate(Update update){
+        List<Update> up = update.get_event().get_updates();
+        String addUpdate = "insert into 'updates' values(NULL,'" + update.get_published() + "','" + up.get(up.size()-1).get_id() + "','" + update.get_description() + "');";
+        int affectedRows = -1;
+        int key = -1;
+
+        try (Connection connection = make_connection();
+        PreparedStatement cur = connection.prepareStatement(addUpdate)){
+            connection.setAutoCommit(false);
+
+            affectedRows = cur.executeUpdate();
+            if (affectedRows!=1){
+                connection.rollback();
+                throw  new SQLException("Failed to insert update. Rolledback");
+            }else {
+                key = cur.getGeneratedKeys().getInt(1);
+                update.set_id(key);
+            }
+
+            PreparedStatement statement = connection.prepareStatement("insert into 'eventsUpdates' values('"  + update.get_event().get_id() + "','" + update.get_id() + "','" + (up.size()+1) + "');" );
+            affectedRows = statement.executeUpdate();
+            if (affectedRows!=1){
+                connection.rollback();
+                throw  new SQLException("Failed to insert to table. Rolledback");
+            }
+
+            connection.commit();
+
+
+
+            return true;
+        }
+        catch (SQLException ex){
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         Model m = new Model();
         List<AUser> users = new ArrayList<>();
         users.add(new User("hagai2"));
         List<Category> categories = new ArrayList<>();
-        categories.add(new Category("cat1"));
+        categories.add(new Category("Robbery"));
         List<Organization> organizations = new ArrayList<>();
         organizations.add(new Organization(users, "org1"));
         Event e = new Event("test event", categories, new User("hagai"), "test update", organizations);
+        e.set_id(4);
+        e.get_updates().get(0).set_id(5);
         DBEvent idbAdapter = new DBEvent(e);
 //        int i = m.makeInsert(idbAdapter);
 //        e.set_id(i);
 //        idbAdapter.set_statusOk();
-        //m.addEvent(e);
+//        m.addEvent(e);
 
+        m.addUpdate(new Update(e, null, LocalDateTime.now(), "test update 2"));
+        Controller c = new Controller();
+        c.setModel(m);
+        c.initController();
 
 
         List<Event> el = m.watchEvents(categories);
