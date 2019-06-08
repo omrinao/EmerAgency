@@ -20,6 +20,7 @@ public class loginView extends AView{
     public TextField tf_userName;
     public PasswordField pf_password;
     public static String username = "";
+    public static User userObject;
 
     /**
      * method to confirm login
@@ -42,6 +43,7 @@ public class loginView extends AView{
         }
 
         username = user;
+        userObject = new User(user);
 
         Stage login = (Stage)btn_login.getScene().getWindow();
         login.close();
