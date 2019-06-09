@@ -102,7 +102,7 @@ public class createView extends AView {
         }
 
         String response = _controller.create_event(title, categories, description, org);
-        if (!response.equals("success")) {
+        if (!response.equalsIgnoreCase("success")) {
             popProblem("Create event failed!\n" +
                     "Make sure you typed in proper details");
             return;

@@ -69,8 +69,10 @@ public class eventDetailsView extends AView {
         if (!categories.isEmpty())
             categories = categories.substring(0, categories.length() - 2);
 
+        int updateNum = 1;
         for (Update u: event.get_updates()) {
-            description = description + u.get_id() + ". " + u.get_description() + '\n';
+            description = description + updateNum + ". " + u.get_description() + '\n';
+            updateNum++;
         }
         for (Organization o: event.get_organizations().keySet()) {
             org = org + o.get_name() + ", ";

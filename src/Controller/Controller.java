@@ -70,8 +70,8 @@ public class Controller {
         Event create = new Event(title, cat, loginView.userObject, description, organizations);
         boolean response = _m.addEvent(create);
         if (response)
-            return "Success";
-        return "Failure";
+            return "success";
+        return "failure";
     }
 
     public ArrayList<String> getCategories(){

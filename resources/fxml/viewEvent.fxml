@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox onMouseMoved="#prepareView" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.viewEvent">
+<VBox onMouseMoved="#prepareView" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.viewEvent">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="937.0" text="View Event Details" textAlignment="CENTER">
          <font>
@@ -46,7 +46,7 @@
                   <Insets left="10.0" top="4.0" />
                </HBox.margin>
             </CheckBox>
-            <CheckBox fx:id="cb_c5" layoutX="323.0" layoutY="10.0" mnemonicParsing="false" textFill="BEIGE">
+            <CheckBox fx:id="cb_c5" layoutX="323.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#set_events" textFill="BEIGE">
                <HBox.margin>
                   <Insets left="10.0" top="4.0" />
                </HBox.margin>
