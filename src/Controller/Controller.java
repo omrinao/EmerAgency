@@ -112,7 +112,7 @@ public class Controller {
         List<Event> toReturn = new ArrayList<>();
         for (int i = 0; i < events.size(); i++){
             Map<Organization, AUser> m = events.get(i).get_organizations();
-            if (m.containsKey(user.get_organiztion()))
+            if (m.containsKey(user.get_organiztion()) || user.get_organiztion().get_name().equals("Moked"))
                 toReturn.add(events.get(i));
         }
 

@@ -117,6 +117,10 @@ public class viewEvent extends AView {
      */
     public void set_viewEvent(MouseEvent mouseEvent) {
         Event eventSelected = new Event();
+        if (cb_event == null || cb_event.getValue() == null) {
+            popProblem("Please fill in all fields!");
+            return;
+        }
         String event = cb_event.getValue().toString();
         for (Event e: events) {
             if (e.get_title().equals(event))
