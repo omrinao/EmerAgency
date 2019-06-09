@@ -41,6 +41,14 @@ public class Organization {
         return null;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Organization){
+            return this._name == ((Organization) obj)._name;
+        }
+        return false;
+    }
+
     public void add_user(AUser user){
         _users.add(user);
     }

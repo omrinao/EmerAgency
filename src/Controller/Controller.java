@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Controller {
 
@@ -53,7 +54,6 @@ public class Controller {
 
     public String create_event(String title, ArrayList<String> categories, String description, ArrayList<String> org){
         List<Category> cat = new ArrayList<Category>();
-        int index;
         for (int i = 0; i < categories.size(); i++){
             for(int j = 0; j < _categories.size(); j++){
                 if(_categories.get(j).get_name().equals(categories.get(i))){
@@ -103,28 +103,24 @@ public class Controller {
         return _m.addUpdate(update) ? "success" : "failed";
     }
 
-    public ArrayList<String> getEvents(String category, String username){
-        ArrayList<String> toReturn = new ArrayList<>();
-        if (category.equals("Murder")){
-            toReturn.add("Fire very hard fire");
-            toReturn.add("Murder");
-            toReturn.add("Fired");
-            toReturn.add("Murdered");
-            toReturn.add("Firedede");
+    public List<Event> getEvents(ArrayList<Category> category, AUser user){
+        List<Category> cat = new ArrayList<>();
+        for (int i = 0; i < category.size(); i++){
+            for(int j = 0; j < _categories.size(); j++){
+                if(_categories.get(j).get_name().equals(category.get(i).get_name())){
+                    cat.add(_categories.get(j));
+                }
+            }
         }
+        List<Event> events = _m.watchEvents(cat);
+        List<Event> toReturn = new ArrayList<>();
+        for (int i = 0; i < events.size(); i++){
+            Map<Organization, AUser> m = events.get(i).get_organizations();
+            if (m.containsKey(user.get_organiztion()))
+                toReturn.add(events.get(i));
+        }
+
         return toReturn;
-    }
-
-
-    //view event details screen
-
-    public ArrayList<String> getEventDetails(ArrayList<String> category, String event){
-        ArrayList<String> details = new ArrayList<>();
-        details.add("Koteret");
-        details.add("Categoryot");
-        details.add("Pratim");
-        details.add("Irgunim");
-        return details;
     }
 
     public static Organization getOrg(String name){

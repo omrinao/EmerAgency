@@ -36,7 +36,7 @@ public class loginView extends AView{
             return;
         }
 
-        AUser response = _controller.login_send(username, password);
+        AUser response = _controller.login_send(user, password);
         if (response == null) {
             popProblem("Login failed!\n" +
                     "Make sure you typed in a proper Username and Password");

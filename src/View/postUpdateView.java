@@ -1,5 +1,6 @@
 package View;
 
+import Models.Category;
 import Models.Event;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -66,47 +67,32 @@ public class postUpdateView extends AView {
 
 
     public void set_events(MouseEvent mouseEvent){
-        ArrayList<String> events = new ArrayList<>();
+        ArrayList<Event> events = new ArrayList<>();
+        ArrayList<Category> cat = new ArrayList<Category>();
+
         if (cb_c1.isSelected()){
-            events.removeAll(_controller.getEvents(cb_c1.getText(), loginView.username));
-            events.addAll(_controller.getEvents(cb_c1.getText(), loginView.username));
+            cat.add(_controller._categories.get(0));
         }
         if (cb_c2.isSelected()){
-            events.removeAll(_controller.getEvents(cb_c2.getText(), loginView.username));
-            events.addAll(_controller.getEvents(cb_c2.getText(), loginView.username));
+            cat.add(_controller._categories.get(1));
         }
         if (cb_c3.isSelected()){
-            events.removeAll(_controller.getEvents(cb_c3.getText(), loginView.username));
-            events.addAll(_controller.getEvents(cb_c3.getText(), loginView.username));
+            cat.add(_controller._categories.get(2));
         }
         if (cb_c4.isSelected()){
-            events.removeAll(_controller.getEvents(cb_c4.getText(), loginView.username));
-            events.addAll(_controller.getEvents(cb_c4.getText(), loginView.username));
+            cat.add(_controller._categories.get(3));
         }
         if (cb_c5.isSelected()){
-            events.removeAll(_controller.getEvents(cb_c5.getText(), loginView.username));
-            events.addAll(_controller.getEvents(cb_c5.getText(), loginView.username));
-        }
-        if (!cb_c1.isSelected()){
-            events.removeAll(_controller.getEvents(cb_c1.getText(), loginView.username));
-        }
-        if (!cb_c2.isSelected()){
-            events.removeAll(_controller.getEvents(cb_c2.getText(), loginView.username));
-        }
-        if (!cb_c3.isSelected()){
-            events.removeAll(_controller.getEvents(cb_c3.getText(), loginView.username));
-        }
-        if (!cb_c4.isSelected()){
-            events.removeAll(_controller.getEvents(cb_c4.getText(), loginView.username));
-        }
-        if (!cb_c5.isSelected()){
-            events.removeAll(_controller.getEvents(cb_c5.getText(), loginView.username));
+            cat.add(_controller._categories.get(4));
         }
 
+        events.addAll(_controller.getEvents(cat, loginView.userObject));
         cb_event.getItems().clear();
 
         if (events.size() > 0){
-            cb_event.getItems().addAll(events);
+            for (int i = 0; i < events.size(); i++){
+                cb_event.getItems().add(events.get(i).get_title());
+            }
             cb_event.setDisable(false);
         }
         else{
