@@ -85,6 +85,7 @@ public class postUpdateView extends AView {
      * @param mouseEvent
      */
     public void set_events(MouseEvent mouseEvent){
+        _events = new ArrayList<>();
         ArrayList<Category> cat = new ArrayList<Category>();
 
         if (cb_c1.isSelected()){
@@ -100,7 +101,7 @@ public class postUpdateView extends AView {
             cat.add(Controller._categories.get(3));
         }
         if (cb_c5.isSelected()){
-            cat.add(Controller._categories.get(4));
+            cat.add(_controller._categories.get(4));
         }
 
         _events = new ArrayList<>(_controller.getEvents(cat, loginView.userObject));
