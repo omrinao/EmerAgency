@@ -64,6 +64,10 @@ public class postUpdateView extends AView {
     }
 
 
+    /**
+     * this method prepare the view for the current screen
+     * @param mouseEvent
+     */
     public void prepareView(MouseEvent mouseEvent){
         if (cb_c1.getText().isEmpty()) {
             ArrayList<String> cat = _controller.getCategories();
@@ -76,7 +80,12 @@ public class postUpdateView extends AView {
     }
 
 
+    /**
+     * this method sets the events according to the user's categories selection
+     * @param mouseEvent
+     */
     public void set_events(MouseEvent mouseEvent){
+        _events = new ArrayList<>();
         ArrayList<Category> cat = new ArrayList<Category>();
 
         if (cb_c1.isSelected()){
@@ -92,7 +101,7 @@ public class postUpdateView extends AView {
             cat.add(Controller._categories.get(3));
         }
         if (cb_c5.isSelected()){
-            cat.add(Controller._categories.get(4));
+            cat.add(_controller._categories.get(4));
         }
 
         _events = new ArrayList<>(_controller.getEvents(cat, loginView.userObject));
@@ -110,6 +119,7 @@ public class postUpdateView extends AView {
 
         mouseEvent.consume();
     }
+
 
     /**
      * method to send new event
@@ -172,6 +182,7 @@ public class postUpdateView extends AView {
         mouseEvent.consume();
 
     }
+
 
     private Event getEventById(int id) {
         for (Event e : _events){

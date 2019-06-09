@@ -45,6 +45,7 @@ public class mainView extends AView {
 
     }
 
+
     /**
      * method to set post update to event screen
      * @param mouseEvent - mouse click on 'post update' button on main screen
@@ -69,6 +70,7 @@ public class mainView extends AView {
 
     }
 
+
     /**
      * method to set view event screen
      * @param mouseEvent - mouse click on 'view event' button on main screen
@@ -92,6 +94,7 @@ public class mainView extends AView {
         mouseEvent.consume();
 
     }
+
 
     /**
      * method to set login screen

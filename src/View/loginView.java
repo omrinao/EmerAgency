@@ -76,6 +76,8 @@ public class loginView extends AView{
         }
         mouseEvent.consume();
     }
+
+
     /**
      * method to clear login parameters
      * @param mouseEvent - mouse click on 'clear' button

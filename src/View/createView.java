@@ -73,7 +73,6 @@ public class createView extends AView {
             return;
         }
 
-
         ArrayList<String> categories = new ArrayList<>();
         ArrayList<String> org = new ArrayList<>();
         if (cb_c1.isSelected()){
@@ -132,6 +131,10 @@ public class createView extends AView {
     }
 
 
+    /**
+     * this method prepare the view for the current screen
+     * @param mouseEvent
+     */
     public void prepareView(MouseEvent mouseEvent){
         if (cb_c1.getText().isEmpty()) {
             ArrayList<String> cat = _controller.getCategories();

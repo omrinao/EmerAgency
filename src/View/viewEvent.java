@@ -23,14 +23,6 @@ public class viewEvent extends AView {
     public Button btn_viewEvent;
     public Button btn_back;
 
-    //event details
-    public TextField tf_title;
-    public TextField tf_categories;
-    public TextArea ta_description;
-    public TextArea ta_org;
-    public Button btn_backDetails;
-
-    private ArrayList<String> details;
     private ArrayList<Event> events;
 
 
@@ -64,6 +56,11 @@ public class viewEvent extends AView {
 
     }
 
+
+    /**
+     * this method prepare the view for the current screen
+     * @param mouseEvent
+     */
     public void prepareView(MouseEvent mouseEvent){
         if (cb_c1.getText().isEmpty()) {
             ArrayList<String> cat = _controller.getCategories();
@@ -76,6 +73,10 @@ public class viewEvent extends AView {
     }
 
 
+    /**
+     * this method sets the events according to the user's categories selection
+     * @param mouseEvent
+     */
     public void set_events(MouseEvent mouseEvent){
         events = new ArrayList<>();
         ArrayList<Category> cat = new ArrayList<Category>();

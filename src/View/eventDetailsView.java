@@ -50,6 +50,10 @@ public class eventDetailsView extends AView {
 
     }
 
+    /**
+     * this method prepare the view for the current screen
+     * @param mouseEvent
+     */
     public void prepareView(MouseEvent mouseEvent){
         if(details != null && details.size() > 0 && tf_title != null && tf_title.getText().isEmpty()){
             tf_title.setText(details.get(0));
@@ -59,6 +63,10 @@ public class eventDetailsView extends AView {
         }
     }
 
+    /**
+     * this method sets the details of the user's chosen event to view them later
+     * @param event
+     */
     public static void setDetails(Event event){
         String categories = "";
         String description = "Updates: " + '\n';
