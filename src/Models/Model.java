@@ -162,7 +162,9 @@ public class Model {
      * @return - list of events
      */
     public List<Event> watchEvents(List<Category> cat){
-        String sq = "select * from 'categoriesInEvents' where category in (" + cat.toString().substring(1, cat.toString().length()-1) + ")";
+        String sq = "select * from categoriesInEvents where eventId in \n" +
+                "( select eventid from categoriesInEvents where category in (" + cat.toString().substring(1, cat.toString().length()-1) + "))";
+
 
         try (Connection connection = make_connection();
         PreparedStatement getEventsIds = connection.prepareStatement(sq)){
