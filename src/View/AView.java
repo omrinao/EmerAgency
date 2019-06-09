@@ -5,6 +5,8 @@ import javafx.scene.control.Alert;
 
 public abstract class AView {
 
+    //singleton facade controller
+
     protected Controller _controller;
     {
 
@@ -17,17 +19,6 @@ public abstract class AView {
          }
     }
 
-
-    protected Scene _cameFrom;
-
-
-    public void set_cameFrom(Scene old){
-        _cameFrom = old;
-    }
-
-    public void set_controller(Controller c){
-        this._controller = c;
-    }
 
     /**
      * method to pop problem easily

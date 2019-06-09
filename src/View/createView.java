@@ -73,7 +73,6 @@ public class createView extends AView {
             return;
         }
 
-
         ArrayList<String> categories = new ArrayList<>();
         ArrayList<String> org = new ArrayList<>();
         if (cb_c1.isSelected()){
@@ -102,7 +101,7 @@ public class createView extends AView {
         }
 
         String response = _controller.create_event(title, categories, description, org);
-        if (!response.equals("success")) {
+        if (!response.equalsIgnoreCase("success")) {
             popProblem("Create event failed!\n" +
                     "Make sure you typed in proper details");
             return;
@@ -132,6 +131,10 @@ public class createView extends AView {
     }
 
 
+    /**
+     * this method prepare the view for the current screen
+     * @param mouseEvent
+     */
     public void prepareView(MouseEvent mouseEvent){
         if (cb_c1.getText().isEmpty()) {
             ArrayList<String> cat = _controller.getCategories();

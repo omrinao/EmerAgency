@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Controller;
 import Models.Category;
 import Models.Event;
 import javafx.fxml.FXMLLoader;
@@ -22,14 +23,6 @@ public class viewEvent extends AView {
     public Button btn_viewEvent;
     public Button btn_back;
 
-    //event details
-    public TextField tf_title;
-    public TextField tf_categories;
-    public TextArea ta_description;
-    public TextArea ta_org;
-    public Button btn_backDetails;
-
-    private ArrayList<String> details;
     private ArrayList<Event> events;
 
 
@@ -63,6 +56,11 @@ public class viewEvent extends AView {
 
     }
 
+
+    /**
+     * this method prepare the view for the current screen
+     * @param mouseEvent
+     */
     public void prepareView(MouseEvent mouseEvent){
         if (cb_c1.getText().isEmpty()) {
             ArrayList<String> cat = _controller.getCategories();
@@ -75,24 +73,28 @@ public class viewEvent extends AView {
     }
 
 
+    /**
+     * this method sets the events according to the user's categories selection
+     * @param mouseEvent
+     */
     public void set_events(MouseEvent mouseEvent){
         events = new ArrayList<>();
         ArrayList<Category> cat = new ArrayList<Category>();
 
         if (cb_c1.isSelected()){
-            cat.add(_controller._categories.get(0));
+            cat.add(Controller._categories.get(0));
         }
         if (cb_c2.isSelected()){
-            cat.add(_controller._categories.get(1));
+            cat.add(Controller._categories.get(1));
         }
         if (cb_c3.isSelected()){
-            cat.add(_controller._categories.get(2));
+            cat.add(Controller._categories.get(2));
         }
         if (cb_c4.isSelected()){
-            cat.add(_controller._categories.get(3));
+            cat.add(Controller._categories.get(3));
         }
         if (cb_c5.isSelected()){
-            cat.add(_controller._categories.get(4));
+            cat.add(Controller._categories.get(4));
         }
 
         events.addAll(_controller.getEvents(cat, loginView.userObject));

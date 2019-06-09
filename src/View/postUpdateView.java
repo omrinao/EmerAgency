@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Controller;
 import Models.Category;
 import Models.Event;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class postUpdateView extends AView {
@@ -29,7 +31,7 @@ public class postUpdateView extends AView {
     public CheckBox cb_c4;
     public CheckBox cb_c5;
 
-    ArrayList<Event> events;
+    private List<Event> _events;
 
     /**
      * method to set main screen
@@ -62,6 +64,10 @@ public class postUpdateView extends AView {
     }
 
 
+    /**
+     * this method prepare the view for the current screen
+     * @param mouseEvent
+     */
     public void prepareView(MouseEvent mouseEvent){
         if (cb_c1.getText().isEmpty()) {
             ArrayList<String> cat = _controller.getCategories();
@@ -74,39 +80,45 @@ public class postUpdateView extends AView {
     }
 
 
+    /**
+     * this method sets the events according to the user's categories selection
+     * @param mouseEvent
+     */
     public void set_events(MouseEvent mouseEvent){
-        events = new ArrayList<>();
         ArrayList<Category> cat = new ArrayList<Category>();
 
         if (cb_c1.isSelected()){
-            cat.add(_controller._categories.get(0));
+            cat.add(Controller._categories.get(0));
         }
         if (cb_c2.isSelected()){
-            cat.add(_controller._categories.get(1));
+            cat.add(Controller._categories.get(1));
         }
         if (cb_c3.isSelected()){
-            cat.add(_controller._categories.get(2));
+            cat.add(Controller._categories.get(2));
         }
         if (cb_c4.isSelected()){
-            cat.add(_controller._categories.get(3));
+            cat.add(Controller._categories.get(3));
         }
         if (cb_c5.isSelected()){
-            cat.add(_controller._categories.get(4));
+            cat.add(Controller._categories.get(4));
         }
 
-        events.addAll(_controller.getEvents(cat, loginView.userObject));
+        _events = new ArrayList<>(_controller.getEvents(cat, loginView.userObject));
         cb_event.getItems().clear();
 
-        if (events.size() > 0){
-            for (int i = 0; i < events.size(); i++){
-                cb_event.getItems().add(events.get(i).get_title());
+        if (_events.size() > 0){
+            for (Event event : _events) {
+                cb_event.getItems().add("(" + event.get_id() + ")    " + event.get_title());
             }
             cb_event.setDisable(false);
         }
         else{
             cb_event.setDisable(true);
         }
+
+        mouseEvent.consume();
     }
+
 
     /**
      * method to send new event
@@ -141,7 +153,7 @@ public class postUpdateView extends AView {
             return;
         }
         else{
-            for (Event e: events) {
+            for (Event e: _events) {
                 if (e.get_title().equals(title))
                     eventChosen = e;
             }
@@ -166,5 +178,14 @@ public class postUpdateView extends AView {
         }
         mouseEvent.consume();
 
+    }
+
+
+    private Event getEventById(int id) {
+        for (Event e : _events){
+            if (e.get_id() == id)
+                return e;
+        }
+        return null;
     }
 }

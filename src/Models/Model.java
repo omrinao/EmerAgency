@@ -174,7 +174,12 @@ public class Model {
 
             ArrayList<Integer> eventIds = new ArrayList<>();
             while (rs.next()){
-                eventIds.add(rs.getInt(1));
+                int eventId = rs.getInt(1);
+                events.putIfAbsent(eventId, new Event());
+                Event ev = events.get(eventId);
+                ev.set_id(eventId);
+                ev.add_category(rs.getString(2));
+                eventIds.add(eventId);
             }
 
             String se = "select * from 'events' where id IN (" + eventIds.toString().substring(1, eventIds.toString().length()-1) +")";
@@ -182,14 +187,14 @@ public class Model {
             rs = idStatement.executeQuery();
 
             while (rs.next()){
-                Event ev = new Event();
-                ev.set_id(rs.getInt(1));
+                Event ev = events.get(rs.getInt(1));
+//                ev.set_id(rs.getInt(1));
                 ev.set_title(rs.getString(2));
                 ev.set_published(rs.getString(3));
                 ev.set_status(EventStatus.valueOf(rs.getString(4)));
                 ev.set_creator(new User(rs.getString(5)));
 
-                events.put(rs.getInt(1), ev);
+//                events.put(rs.getInt(1), ev);
             }
 
             List<Integer> updateIds = new ArrayList<>();

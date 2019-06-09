@@ -14,8 +14,9 @@ public class Controller {
     private Model _m;
     public static List<Organization> _organizations;
     public static List<Category> _categories;
-    private static Controller _instance;
+    private static Controller _instance; // facade controller
 
+    //controller (singleton) getInstance method
     public static Controller getInstance() throws Exception{
         if (_instance == null){
             _instance = new Controller();
@@ -46,8 +47,14 @@ public class Controller {
     }
 
 
-    //create event screen
-
+    /**
+     * method to create an event, connecting the view and the model
+     * @param title
+     * @param categories
+     * @param description
+     * @param org
+     * @return
+     */
     public String create_event(String title, ArrayList<String> categories, String description, ArrayList<String> org){
         List<Category> cat = new ArrayList<Category>();
         for (int i = 0; i < categories.size(); i++){
@@ -71,9 +78,14 @@ public class Controller {
         boolean response = _m.addEvent(create);
         if (response)
             return "success";
-        return "Failure";
+        return "failure";
     }
 
+
+    /**
+     * method that returns all categories as a string to the view
+     * @return
+     */
     public ArrayList<String> getCategories(){
         List<Category> cat = _m.getCategories();
         ArrayList<String> toReturn = new ArrayList<>();
@@ -83,22 +95,20 @@ public class Controller {
         return toReturn;
     }
 
-    public ArrayList<String> getOrg(){
-        ArrayList<String> toReturn = new ArrayList<>();
-        for(int i = 0; i < _organizations.size(); i++){
-            toReturn.add(_organizations.get(i).get_name());
-        }
-        return toReturn;
-    }
-
 
     //post update screen
-
     public String post_update(Event event, String description){
         Update update = new Update(event, null, LocalDateTime.now(), description);
         return _m.addUpdate(update) ? "success" : "failed";
     }
 
+
+    /**
+     * method that return the events relevant to the user permission and categories chosen
+     * @param category
+     * @param user
+     * @return
+     */
     public List<Event> getEvents(ArrayList<Category> category, AUser user){
         List<Category> cat = new ArrayList<>();
         for (int i = 0; i < category.size(); i++){
@@ -119,6 +129,12 @@ public class Controller {
         return toReturn;
     }
 
+
+    /**
+     * method that return and organization according to the given name
+     * @param name
+     * @return
+     */
     public static Organization getOrg(String name){
         for (Organization org : _organizations){
             if (org.get_name().equals(name))
