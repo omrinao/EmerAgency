@@ -29,6 +29,8 @@ public class postUpdateView extends AView {
     public CheckBox cb_c4;
     public CheckBox cb_c5;
 
+    ArrayList<Event> events;
+
     /**
      * method to set main screen
      * @param mouseEvent - mouse click on 'back' button on post update screen
@@ -73,7 +75,7 @@ public class postUpdateView extends AView {
 
 
     public void set_events(MouseEvent mouseEvent){
-        ArrayList<Event> events = new ArrayList<>();
+        events = new ArrayList<>();
         ArrayList<Category> cat = new ArrayList<Category>();
 
         if (cb_c1.isSelected()){
@@ -133,14 +135,19 @@ public class postUpdateView extends AView {
             title = cb_event.getValue().toString();
         }
         String description = ta_description.getText();
-
+        Event eventChosen = new Event();
         if (title.isEmpty() || description.isEmpty()){
             popProblem("You need to fill in all fields\n");
             return;
         }
+        else{
+            for (Event e: events) {
+                if (e.get_title().equals(title))
+                    eventChosen = e;
+            }
+        }
 
-
-        String response = _controller.post_update(new Event(), description); //TODO: add event attribute configured to the one selected by user (which he wants to post a new update to)
+        String response = _controller.post_update(eventChosen, description);
         if (!response.equals("success")) {
             popProblem("Create event failed!\n" +
                     "Make sure you typed in proper details");
@@ -148,22 +155,14 @@ public class postUpdateView extends AView {
         }
         else {
             popInfo("Update Posted Successfully!");
-        }
-
-        Stage mainView = (Stage)btn_back.getScene().getWindow();
-        mainView.close();
-        try {
-            Stage createStage = new Stage();
-            createStage.setTitle("Emer-Agency");
-            //loading main screen
-            Parent root = FXMLLoader.load(getClass().getResource("../fxml/mainView.fxml"));
-            Scene scene = new Scene(root, 900, 600);
-            scene.getStylesheets().add(getClass().getResource("../css/ViewStyle.css").toExternalForm());
-            createStage.setScene(scene);
-            createStage.show();
-
-        } catch (IOException e) {
-            popProblem("Error while trying to load post update screen interface\n" + e.getMessage());
+            cb_event.getItems().clear();
+            cb_event.setDisable(true);
+            cb_c1.setSelected(false);
+            cb_c2.setSelected(false);
+            cb_c3.setSelected(false);
+            cb_c4.setSelected(false);
+            cb_c5.setSelected(false);
+            ta_description.setText("");
         }
         mouseEvent.consume();
 

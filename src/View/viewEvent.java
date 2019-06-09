@@ -115,10 +115,12 @@ public class viewEvent extends AView {
      * @param mouseEvent - mouse click on 'view event details' button on view event screen
      */
     public void set_viewEvent(MouseEvent mouseEvent) {
-
+        Event eventSelected = new Event();
         String event = cb_event.getValue().toString();
-        int index = events.indexOf(event);
-        Event eventSelected = events.get(index);
+        for (Event e: events) {
+            if (e.get_title().equals(event))
+                eventSelected = e;
+        }
 
         Stage mainView = (Stage)btn_back.getScene().getWindow();
         try {
@@ -130,7 +132,7 @@ public class viewEvent extends AView {
             scene.getStylesheets().add(getClass().getResource("../css/ViewStyle.css").toExternalForm());
             createStage.setScene(scene);
             createStage.show();
-            //eventDetailsView.setDetails(eventSelected);
+            eventDetailsView.setDetails(eventSelected);
 
         } catch (IOException e) {
             popProblem("Error while trying to load main screen interface\n" + e.getMessage());
