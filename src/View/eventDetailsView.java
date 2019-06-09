@@ -1,5 +1,6 @@
 package View;
 
+import Models.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -55,10 +56,10 @@ public class eventDetailsView extends AView {
         }
     }
 
-    public static void setDetails(ArrayList<String> info){
+    /*public static void setDetails(Event event){
         details = new ArrayList<>();
         for (int i = 0; i < info.size(); i++){
             details.add(info.get(i));
         }
-    }
+    }*/
 }
