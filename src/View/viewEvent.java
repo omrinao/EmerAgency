@@ -30,6 +30,7 @@ public class viewEvent extends AView {
     public Button btn_backDetails;
 
     private ArrayList<String> details;
+    private ArrayList<Event> events;
 
 
     /**
@@ -75,7 +76,7 @@ public class viewEvent extends AView {
 
 
     public void set_events(MouseEvent mouseEvent){
-        ArrayList<Event> events = new ArrayList<>();
+        events = new ArrayList<>();
         ArrayList<Category> cat = new ArrayList<Category>();
 
         if (cb_c1.isSelected()){
@@ -116,23 +117,8 @@ public class viewEvent extends AView {
     public void set_viewEvent(MouseEvent mouseEvent) {
 
         String event = cb_event.getValue().toString();
-        ArrayList<String> categories = new ArrayList<>();
-        if (cb_c1.isSelected()){
-            categories.add(cb_c1.getText());
-        }
-        if (cb_c2.isSelected()){
-            categories.add(cb_c2.getText());
-        }
-        if (cb_c3.isSelected()){
-            categories.add(cb_c3.getText());
-        }
-        if (cb_c4.isSelected()){
-            categories.add(cb_c4.getText());
-        }
-        if (cb_c5.isSelected()){
-            categories.add(cb_c5.getText());
-        }
-        ArrayList<String> eventDetails = new ArrayList<>();//_controller.getEventDetails(categories, event);
+        int index = events.indexOf(event);
+        Event eventSelected = events.get(index);
 
         Stage mainView = (Stage)btn_back.getScene().getWindow();
         try {
@@ -143,12 +129,8 @@ public class viewEvent extends AView {
             Scene scene = new Scene(root, 900, 600);
             scene.getStylesheets().add(getClass().getResource("../css/ViewStyle.css").toExternalForm());
             createStage.setScene(scene);
-            details = new ArrayList<>();
-            for (int i = 0; i < eventDetails.size(); i++){
-                details.add(eventDetails.get(i));
-            }
             createStage.show();
-            eventDetailsView.setDetails(details);
+            //eventDetailsView.setDetails(eventSelected);
 
         } catch (IOException e) {
             popProblem("Error while trying to load main screen interface\n" + e.getMessage());
