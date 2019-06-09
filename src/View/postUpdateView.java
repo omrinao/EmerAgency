@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Controller;
 import Models.Category;
 import Models.Event;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class postUpdateView extends AView {
@@ -28,6 +30,8 @@ public class postUpdateView extends AView {
     public CheckBox cb_c3;
     public CheckBox cb_c4;
     public CheckBox cb_c5;
+
+    private List<Event> _events;
 
     /**
      * method to set main screen
@@ -73,37 +77,38 @@ public class postUpdateView extends AView {
 
 
     public void set_events(MouseEvent mouseEvent){
-        ArrayList<Event> events = new ArrayList<>();
         ArrayList<Category> cat = new ArrayList<Category>();
 
         if (cb_c1.isSelected()){
-            cat.add(_controller._categories.get(0));
+            cat.add(Controller._categories.get(0));
         }
         if (cb_c2.isSelected()){
-            cat.add(_controller._categories.get(1));
+            cat.add(Controller._categories.get(1));
         }
         if (cb_c3.isSelected()){
-            cat.add(_controller._categories.get(2));
+            cat.add(Controller._categories.get(2));
         }
         if (cb_c4.isSelected()){
-            cat.add(_controller._categories.get(3));
+            cat.add(Controller._categories.get(3));
         }
         if (cb_c5.isSelected()){
-            cat.add(_controller._categories.get(4));
+            cat.add(Controller._categories.get(4));
         }
 
-        events.addAll(_controller.getEvents(cat, loginView.userObject));
+        _events = new ArrayList<>(_controller.getEvents(cat, loginView.userObject));
         cb_event.getItems().clear();
 
-        if (events.size() > 0){
-            for (int i = 0; i < events.size(); i++){
-                cb_event.getItems().add(events.get(i).get_title());
+        if (_events.size() > 0){
+            for (Event event : _events) {
+                cb_event.getItems().add("(" + event.get_id() + ")    " + event.get_title());
             }
             cb_event.setDisable(false);
         }
         else{
             cb_event.setDisable(true);
         }
+
+        mouseEvent.consume();
     }
 
     /**
@@ -139,8 +144,10 @@ public class postUpdateView extends AView {
             return;
         }
 
+        String val = cb_event.getValue().toString();
+        int id = Integer.valueOf(val.substring(val.indexOf('(')+1, val.indexOf(')')));
 
-        String response = _controller.post_update(new Event(), description); //TODO: add event attribute configured to the one selected by user (which he wants to post a new update to)
+        String response = _controller.post_update(getEventById(id), description); //TODO: add event attribute configured to the one selected by user (which he wants to post a new update to)
         if (!response.equals("success")) {
             popProblem("Create event failed!\n" +
                     "Make sure you typed in proper details");
@@ -167,5 +174,13 @@ public class postUpdateView extends AView {
         }
         mouseEvent.consume();
 
+    }
+
+    private Event getEventById(int id) {
+        for (Event e : _events){
+            if (e.get_id() == id)
+                return e;
+        }
+        return null;
     }
 }

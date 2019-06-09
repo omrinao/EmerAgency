@@ -149,5 +149,9 @@ public class Event {
         return _id == ev._id;
 
     }
+
+    public void add_category(String string) {
+        _categories.add(new Category(string));
+    }
 }
 
