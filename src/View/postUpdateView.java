@@ -144,9 +144,11 @@ public class postUpdateView extends AView {
             return;
         }
         else{
-            for (Event e: _events) {
-                if (e.get_title().equals(title))
-                    eventChosen = e;
+            int id = Integer.valueOf(title.substring(title.indexOf('(')+1, title.indexOf(')')));
+            eventChosen = getEventById(id);
+            if (eventChosen==null){
+                popProblem("Some error occured, please try again");
+                return;
             }
         }
 

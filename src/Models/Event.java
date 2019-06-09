@@ -31,7 +31,7 @@ public class Event {
         this._categories = _categories;
         this._creator = _creator;
         _users = new HashMap<>();
-        _users.put(_creator, EventPermission.read);
+        _users.put(_creator, EventPermission.write);
 
         this._organizations = new HashMap<>();
         _orgs.forEach(organization -> {

@@ -16,26 +16,6 @@ public class DBEvent{
         this._base = _base;
     }
 
-    public ArrayList<String> extractQuery() {
-        ArrayList<String> ans = new ArrayList<>();
-//        String insertEvent = insertEvents(),
-//                eventCat = insertEventsCategories(),
-//                userPer = insertUserPermissions(),
-//                update = this.insertUpdate(),
-//                updateInEvent = updateInEvent(),
-//                accountable = accountableUsers();
-//        ans += insertAccountableUsers();
-
-//        ans.add(insertEvent);
-//        ans.add(eventCat);
-//        ans.add(userPer);
-//        ans.add(update);
-//        ans.add(updateInEvent);
-//        ans.add(accountable);
-
-
-        return ans;
-    }
 
     public String updateInEvent() {
         String INSERT = "INSERT INTO ";
