@@ -94,7 +94,7 @@ public class Controller {
 
     //post update screen
 
-    public String post_update( Event event, String description){
+    public String post_update(Event event, String description){
         Update update = new Update(event, null, LocalDateTime.now(), description);
         return _m.addUpdate(update) ? "success" : "failed";
     }

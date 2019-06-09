@@ -1,6 +1,9 @@
 package View;
 
+import Models.Category;
 import Models.Event;
+import Models.Organization;
+import Models.Update;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -56,10 +59,29 @@ public class eventDetailsView extends AView {
         }
     }
 
-    /*public static void setDetails(Event event){
-        details = new ArrayList<>();
-        for (int i = 0; i < info.size(); i++){
-            details.add(info.get(i));
+    public static void setDetails(Event event){
+        String categories = "";
+        String description = "Updates: " + '\n';
+        String org = "";
+        for (Category c: event.get_categories()) {
+            categories = categories + c.get_name() + ", ";
         }
-    }*/
+        if (!categories.isEmpty())
+            categories = categories.substring(0, categories.length() - 2);
+
+        for (Update u: event.get_updates()) {
+            description = description + u.get_id() + ". " + u.get_description() + '\n';
+        }
+        for (Organization o: event.get_organizations().keySet()) {
+            org = org + o.get_name() + ", ";
+        }
+        if (!org.isEmpty())
+            org = org.substring(0, org.length() - 2);
+
+        details = new ArrayList<>();
+        details.add(event.get_title());
+        details.add(categories);
+        details.add(description);
+        details.add(org);
+    }
 }
