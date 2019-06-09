@@ -1,6 +1,8 @@
 package View;
 
+import Controller.Controller;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -17,6 +19,7 @@ public class mainView extends AView {
     public Button btn_postUpdate;
     public Button btn_viewEvent;
     public Button btn_logout;
+
 
     /**
      * method to set create event screen

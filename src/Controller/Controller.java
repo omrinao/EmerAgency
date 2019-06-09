@@ -28,10 +28,6 @@ public class Controller {
         initController();
     }
 
-    public void setModel(Model m ){
-        this._m = m;
-    }
-
     public void initController() throws Exception{
         try {
             _organizations = _m.getOrganizations();

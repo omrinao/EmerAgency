@@ -197,8 +197,6 @@ public class Model {
             PreparedStatement updatesIdStatement = connection.prepareStatement(seu);
             rs = updatesIdStatement.executeQuery();
             while (rs.next()){
-//                int id = rs.getInt(1);
-//                Event ev = ret.stream().filter(event -> id == event.get_id()).findFirst().orElse(null);
                 int id = rs.getInt(2);
                 updateIds.add(id);
                 Event ev = events.get(rs.getInt(1));

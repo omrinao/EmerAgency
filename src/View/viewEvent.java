@@ -43,10 +43,16 @@ public class viewEvent extends AView {
             Stage createStage = new Stage();
             createStage.setTitle("Emer-Agency");
             //loading main screen
-            Parent root = FXMLLoader.load(getClass().getResource("../fxml/mainView.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/mainView.fxml"));
+            Parent root = fxmlLoader.load();
             Scene scene = new Scene(root, 900, 600);
             scene.getStylesheets().add(getClass().getResource("../css/ViewStyle.css").toExternalForm());
             createStage.setScene(scene);
+
+            mainView viewController = fxmlLoader.getController();
+            if (!loginView.userObject.get_organiztion().get_name().equals("Moked"))
+                viewController.btn_createEvent.setDisable(true);
+
             createStage.show();
 
         } catch (IOException e) {

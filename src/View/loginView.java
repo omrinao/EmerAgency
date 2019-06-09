@@ -2,6 +2,7 @@ package View;
 
 import Models.AUser;
 import Models.User;
+import com.sun.deploy.util.FXLoader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -55,13 +56,18 @@ public class loginView extends AView{
             ClassLoader classLoader = getClass().getClassLoader();
             Enumeration<URL> fxml = classLoader.getResources("fxml/mainView.fxml");
             String fx = fxml.nextElement().toExternalForm();
-            Parent root = FXMLLoader.load(new URL (fx));
+            FXMLLoader fxmLoader = new FXMLLoader(getClass().getResource("../fxml/mainView.fxml"));
+            Parent root = fxmLoader.load();
             Scene scene = new Scene(root, 900, 600);
             ClassLoader cssloader = getClass().getClassLoader();
             Enumeration<URL> css = cssloader.getResources("css/ViewStyle.css");
             String cs = css.nextElement().toExternalForm();
             scene.getStylesheets().add(cs);
             mainStage.setScene(scene);
+
+            mainView viewController = fxmLoader.getController();
+            if (!loginView.userObject.get_organiztion().get_name().equals("Moked"))
+                viewController.btn_createEvent.setDisable(true);
 
             mainStage.show();
 
